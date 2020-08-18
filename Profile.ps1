@@ -8,3 +8,7 @@ Get-Content "$env:temp\vcvars.txt" | Foreach-Object {
     Set-Content "env:\$($matches[1])" $matches[2]
   }
 }
+
+function make-link ($target, $link) {
+    New-Item -Path $link -ItemType SymbolicLink -Value $target
+}
