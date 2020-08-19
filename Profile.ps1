@@ -9,6 +9,7 @@ Get-Content "$env:temp\vcvars.txt" | Foreach-Object {
   }
 }
 
+# shortcut function to make a symlink
 function make-link ($target, $link) {
     New-Item -Path $link -ItemType SymbolicLink -Value $target
 }
