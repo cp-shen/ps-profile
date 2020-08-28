@@ -17,5 +17,30 @@ Get-Content "$env:temp\vcvars.txt" | Foreach-Object {
 
 # shortcut function to make a symlink
 function make-link ($target, $link) {
-    New-Item -Path $link -ItemType SymbolicLink -Value $target
+  New-Item -Path $link -ItemType SymbolicLink -Value $target
+}
+
+function reload-profile {
+  @(
+    $Profile.AllUsersAllHosts,
+    $Profile.AllUsersCurrentHost,
+    $Profile.CurrentUserAllHosts,
+    $Profile.CurrentUserCurrentHost
+  ) | % {
+    if (Test-Path $_) {
+      Write-Verbose "Running $_"
+      . $_
+    }
+  }
+}
+
+function reload-lua ($target) {
+  if (Test-Path -Path $target -PathType leaf -Filter "*.lua") {
+    $fullPath = Resolve-Path $target
+    echo "Running $fullPath"
+    Start-Process -FilePath "CodeHelper.exe" -ArgumentList "reload", "127.0.0.1", "23191", "auto", $fullPath
+  }
+  else {
+    echo "$target is not a lua file"
+  }
 }
