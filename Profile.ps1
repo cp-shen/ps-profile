@@ -2,11 +2,14 @@
 Set-PsFzfOption -PSReadlineChordProvider 'Ctrl+t' -PSReadlineChordReverseHistory 'Ctrl+r'
 
 # enable vcvars64 for native development
-if ([System.IO.File]::Exists("C:\Program Files (x86)\Microsoft Visual Studio\2017\Community")) {
+if (Test-Path -Path "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community") {
   cmd.exe /c "call `"C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Auxiliary\Build\vcvars64.bat`" && set > %temp%\vcvars.txt"
 }
-elseif ([System.IO.File]::Exists("C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise")) {
+elseif (Test-Path -Path "C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise") {
   cmd.exe /c "call `"C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\VC\Auxiliary\Build\vcvars64.bat`" && set > %temp%\vcvars.txt"
+}
+else {
+  echo "vcvars64.bat not found."
 }
 
 Get-Content "$env:temp\vcvars.txt" | Foreach-Object {
