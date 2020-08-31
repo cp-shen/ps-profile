@@ -1,20 +1,22 @@
 # enable fzf integration
 Set-PsFzfOption -PSReadlineChordProvider 'Ctrl+t' -PSReadlineChordReverseHistory 'Ctrl+r'
 
-# enable vcvars64 for native development
-if (Test-Path -Path "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community") {
-  cmd.exe /c "call `"C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Auxiliary\Build\vcvars64.bat`" && set > %temp%\vcvars.txt"
-}
-elseif (Test-Path -Path "C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise") {
-  cmd.exe /c "call `"C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\VC\Auxiliary\Build\vcvars64.bat`" && set > %temp%\vcvars.txt"
-}
-else {
-  echo "vcvars64.bat not found."
-}
+function load-vcvars64 {
+  # enable vcvars64 for native development
+  if (Test-Path -Path "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community") {
+    cmd.exe /c "call `"C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Auxiliary\Build\vcvars64.bat`" && set > %temp%\vcvars.txt"
+  }
+  elseif (Test-Path -Path "C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise") {
+    cmd.exe /c "call `"C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\VC\Auxiliary\Build\vcvars64.bat`" && set > %temp%\vcvars.txt"
+  }
+  else {
+    echo "vcvars64.bat not found."
+  }
 
-Get-Content "$env:temp\vcvars.txt" | Foreach-Object {
-  if ($_ -match "^(.*?)=(.*)$") {
-    Set-Content "env:\$($matches[1])" $matches[2]
+  Get-Content "$env:temp\vcvars.txt" | Foreach-Object {
+    if ($_ -match "^(.*?)=(.*)$") {
+      Set-Content "env:\$($matches[1])" $matches[2]
+    }
   }
 }
 
