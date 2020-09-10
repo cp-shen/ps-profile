@@ -1,3 +1,5 @@
+Import-Module posh-git
+
 # enable fzf integration
 Set-PsFzfOption -PSReadlineChordProvider 'Ctrl+t' -PSReadlineChordReverseHistory 'Ctrl+r'
 
