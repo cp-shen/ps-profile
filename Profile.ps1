@@ -1,10 +1,13 @@
+$env:RUSTUP_DIST_SERVER="https://mirrors.tuna.tsinghua.edu.cn/rustup"
+
+# enable git integratin
 Import-Module posh-git
 
 # enable fzf integration
 Set-PsFzfOption -PSReadlineChordProvider 'Ctrl+t' -PSReadlineChordReverseHistory 'Ctrl+r'
 
+# shortcut for vcvars64
 function load-vcvars64 {
-  # enable vcvars64 for native development
   if (Test-Path -Path "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community") {
     cmd.exe /c "call `"C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Auxiliary\Build\vcvars64.bat`" && set > %temp%\vcvars.txt"
   }
