@@ -1,4 +1,5 @@
 $env:RUSTUP_DIST_SERVER="https://mirrors.tuna.tsinghua.edu.cn/rustup"
+$env:VCPKG_DEFAULT_TRIPLET="x64-windows"
 
 # enable git integratin
 Import-Module posh-git
