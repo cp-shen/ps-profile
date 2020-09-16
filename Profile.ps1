@@ -17,6 +17,7 @@ function load-vcvars64 {
   }
   else {
     echo "vcvars64.bat not found."
+    return
   }
 
   Get-Content "$env:temp\vcvars.txt" | Foreach-Object {
