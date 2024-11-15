@@ -8,11 +8,11 @@ Set-PsFzfOption -PSReadlineChordProvider 'Ctrl+t' -PSReadlineChordReverseHistory
 
 # shortcut for vcvars64
 function load-vcvars64 {
-  if (Test-Path -Path "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community") {
-    cmd.exe /c "call `"C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Auxiliary\Build\vcvars64.bat`" && set > %temp%\vcvars.txt"
+  if (Test-Path -Path "C:\Program Files\Microsoft Visual Studio\2022\Community") {
+    cmd.exe /c "call `"C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Auxiliary\Build\vcvars64.bat`" && set > %temp%\vcvars.txt"
   }
-  elseif (Test-Path -Path "C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise") {
-    cmd.exe /c "call `"C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\VC\Auxiliary\Build\vcvars64.bat`" && set > %temp%\vcvars.txt"
+  elseif (Test-Path -Path "C:\Program Files\Microsoft Visual Studio\2022\Enterprise") {
+    cmd.exe /c "call `"C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Auxiliary\Build\vcvars64.bat`" && set > %temp%\vcvars.txt"
   }
   else {
     echo "vcvars64.bat not found."
