@@ -1,4 +1,5 @@
 $env:RUSTUP_DIST_SERVER="https://mirrors.tuna.tsinghua.edu.cn/rustup"
+$env:VCPKG_DEFAULT_TRIPLET="x64-windows"
 
 # enable git integratin
 Import-Module posh-git
@@ -16,6 +17,7 @@ function load-vcvars64 {
   }
   else {
     echo "vcvars64.bat not found."
+    return
   }
 
   Get-Content "$env:temp\vcvars.txt" | Foreach-Object {
