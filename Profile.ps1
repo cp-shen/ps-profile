@@ -1,5 +1,5 @@
-$env:RUSTUP_DIST_SERVER="https://mirrors.tuna.tsinghua.edu.cn/rustup"
-$env:VCPKG_DEFAULT_TRIPLET="x64-windows"
+$env:RUSTUP_DIST_SERVER = "https://mirrors.tuna.tsinghua.edu.cn/rustup"
+$env:VCPKG_DEFAULT_TRIPLET = "x64-windows"
 
 # enable git integratin
 Import-Module posh-git
@@ -62,7 +62,19 @@ function y {
   yazi $args --cwd-file="$tmp"
   $cwd = Get-Content -Path $tmp
   if (-not [String]::IsNullOrEmpty($cwd) -and $cwd -ne $PWD.Path) {
-      Set-Location -LiteralPath $cwd
+    Set-Location -LiteralPath $cwd
   }
   Remove-Item -Path $tmp
 }
+
+function who-lock-me ($FileOrFolderPath) {
+  if ((Test-Path -Path $FileOrFolderPath) -eq $false) {
+    Write-Warning "File or directory does not exist."
+  }
+  else {
+    $LockingProcess = CMD /C "openfiles /query /fo table | find /I ""$FileOrFolderPath"""
+    Write-Host $LockingProcess
+  }
+}
+
+Invoke-Expression (& { (zoxide init powershell | Out-String) })
