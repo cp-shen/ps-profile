@@ -82,5 +82,6 @@ function who-lock-me ($FileOrFolderPath) {
   }
 }
 
+Invoke-Expression -Command "${HOME}/Documents/PowerShell/DenoComp.ps1"
 Invoke-Expression (& { (zoxide init powershell | Out-String) })
 Invoke-Expression (& starship init powershell)
